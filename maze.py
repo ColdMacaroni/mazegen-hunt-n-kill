@@ -33,6 +33,8 @@ def draw_maze(maze_draw, maze, width, height, fg,
     maze_draw.rectangle((width * CELL_SIZE +STROKE, height * CELL_SIZE +STROKE,
                          (width + 1) * CELL_SIZE -STROKE, (height + 1) * CELL_SIZE -STROKE), fill=end)
 
+    # TODO: fix alignment problems
+
     # No need to draw borders, those are always blocked
     # Start drawin the stuff. Shift all by one to make use of the padding
     for y in range(1, height + 1):
