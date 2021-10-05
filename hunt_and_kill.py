@@ -58,7 +58,7 @@ def walk_maze(maze: list[int], width: int, height: int, start: tuple[int, int]) 
         # -- EAST
         p_pt = east(pt)
         if pt[0] < width - 1 and maze[maze_idx(p_pt)] == 0:
-            possible_points[p_pt] = "S"
+            possible_points[p_pt] = "E"
 
         # -- SOUTH
         p_pt = south(pt)
@@ -76,7 +76,9 @@ def walk_maze(maze: list[int], width: int, height: int, start: tuple[int, int]) 
     starting_n = check_neighbours(start)
     if starting_n:
         n = random.choice(tuple(starting_n.keys()))
+
         maze[maze_idx(n)] |= DIRS[O_DIRS[starting_n[n]]]
+        maze[maze_idx(start)] |= DIRS[starting_n[n]]
 
 
 def gen_maze(width: int, height: int) -> list[int]:
