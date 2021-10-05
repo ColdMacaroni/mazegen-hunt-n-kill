@@ -25,7 +25,8 @@ def draw_maze(maze_draw, maze, width, height, fg,
 
     # Draw the colour squares at tl and br. -STROKE for aesthetic purposes
     # start
-    maze_draw.rectangle((CELL_SIZE + STROKE, CELL_SIZE + STROKE,
+    # needs an extra pixel when stroke != 1
+    maze_draw.rectangle((CELL_SIZE + STROKE + bool(STROKE - 1), CELL_SIZE + STROKE + bool(STROKE - 1),
                          CELL_SIZE*2 -STROKE, CELL_SIZE*2 -STROKE), fill=start)
 
     # end
@@ -44,7 +45,7 @@ def draw_maze(maze_draw, maze, width, height, fg,
             if not (point & DIRS["N"]):
                 maze_draw.line(
                         (
-                            x * CELL_SIZE, y * CELL_SIZE,
+                            x      * CELL_SIZE, y * CELL_SIZE,
                             (x + 1) * CELL_SIZE, y * CELL_SIZE
                         ),
                         fill=fg,
@@ -54,7 +55,7 @@ def draw_maze(maze_draw, maze, width, height, fg,
             if not (point & DIRS["E"]):
                 maze_draw.line(
                         (
-                            (x + 1) * CELL_SIZE, y * CELL_SIZE,
+                            (x + 1) * CELL_SIZE,  y      * CELL_SIZE,
                             (x + 1) * CELL_SIZE, (y + 1) * CELL_SIZE
                         ),
                         fill=fg,
@@ -64,8 +65,8 @@ def draw_maze(maze_draw, maze, width, height, fg,
             if not (point & DIRS["S"]):
                 maze_draw.line(
                         (
-                            x * CELL_SIZE, y * CELL_SIZE + CELL_SIZE,
-                            (x + 1) * CELL_SIZE, (y + 1 ) * CELL_SIZE
+                             x      * CELL_SIZE, (y + 1) * CELL_SIZE,
+                            (x + 1) * CELL_SIZE, (y + 1) * CELL_SIZE
                         ),
                         fill=fg,
                         width=STROKE)
@@ -74,7 +75,7 @@ def draw_maze(maze_draw, maze, width, height, fg,
             if not (point & DIRS["W"]):
                 maze_draw.line(
                         (
-                            x * CELL_SIZE, y * CELL_SIZE, 
+                            x * CELL_SIZE,  y      * CELL_SIZE,
                             x * CELL_SIZE, (y + 1) * CELL_SIZE
                         ),
                         fill=fg,
