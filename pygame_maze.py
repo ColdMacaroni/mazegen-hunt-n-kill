@@ -6,7 +6,7 @@
 import pygame
 from sys import argv
 
-from hunt_and_kill import DIRS, O_DIRS
+from hunt_and_kill import DIRS
 import hunt_and_kill
 
 CELL_SIZE = 10 if len(argv) < 3 else int(argv[2])
@@ -21,33 +21,24 @@ def draw_maze(screen, maze, width, height, fg):
     # This function is just so useful
     maze_idx = lambda p: p[1] * width + p[0]
 
-    # First of all, draw borders.
-    f_width = width * CELL_SIZE
-    f_height = height * CELL_SIZE
+    # No need to draw borders, those are always blocked
 
-    pygame.draw.line(screen, fg, (0, 0), (f_width, 0), STROKE)
-    pygame.draw.line(screen, fg, (f_width, 0), (f_width, f_height), STROKE)
-    pygame.draw.line(screen, fg, (f_width, f_height), (0, f_height), STROKE)
-    pygame.draw.line(screen, fg, (0, f_height), (0, 0), STROKE)
-
-    del f_width, f_height
-
-    # Start drawin the stuff
-    for y in range(height):
-        for x in range(width):
-            point = maze[maze_idx((x, y))]
+    # Start drawin the stuff. Shift all by one to make use of the padding
+    for y in range(1, height + 1):
+        for x in range(1, width + 1):
+            point = maze[maze_idx((x - 1, y - 1))]
 
             # -- NORTH
             if not (point & DIRS["N"]):
                 pygame.draw.line(screen, fg,
-                        (x * CELL_SIZE, y * CELL_SIZE), 
+                        (x * CELL_SIZE, y * CELL_SIZE),
                         ((x + 1) * CELL_SIZE, y * CELL_SIZE),
                         STROKE)
 
             # -- EAST
             if not (point & DIRS["E"]):
                 pygame.draw.line(screen, fg,
-                        ((x + 1) * CELL_SIZE, y * CELL_SIZE), 
+                        ((x + 1) * CELL_SIZE, y * CELL_SIZE),
                         ((x + 1) * CELL_SIZE, (y + 1) * CELL_SIZE),
                         STROKE)
 
@@ -77,8 +68,7 @@ def main(width = 10, height = 10, *args):
     pygame.init()
     clock = pygame.time.Clock()
 
-    # TODO: Add padding
-    screen = pygame.display.set_mode((width * CELL_SIZE, height * CELL_SIZE))
+    screen = pygame.display.set_mode((width * CELL_SIZE + CELL_SIZE*2, height * CELL_SIZE + CELL_SIZE*2))
 
     maze = hunt_and_kill.gen_maze(width, height)
 
