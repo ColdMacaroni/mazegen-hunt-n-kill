@@ -9,7 +9,7 @@ from sys import argv
 from hunt_and_kill import DIRS, O_DIRS
 import hunt_and_kill
 
-CELL_SIZE = 7
+CELL_SIZE = 10 if len(argv) < 3 else int(argv[2])
 
 def draw_maze(screen, maze, width, height, fg):
     """
@@ -96,10 +96,10 @@ def main(width = 10, height = 10, *args):
             if event.type == pygame.QUIT:
                 running = False
 
-    pygame.quit()
+    pygame.image.save(screen, "maze.png")
+    print("Image saved as maze.png!")
 
-    if input("Save? [Y/n]: ").strip().lower() != 'n':
-        pygame.image.save(screen, "maze.jpg")
+    pygame.quit()
 
 
 if __name__ == "__main__":
