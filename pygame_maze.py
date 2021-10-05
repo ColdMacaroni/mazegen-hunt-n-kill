@@ -86,8 +86,9 @@ def main(width = 10, height = 10, *args):
             if event.type == pygame.QUIT:
                 running = False
 
-    pygame.image.save(screen, "maze.png")
-    print("Image saved as maze.png!")
+    filename = f"mazes/maze_{width}x{height}-{CELL_SIZE}.png"
+    pygame.image.save(screen, filename)
+    print(f"Image saved as {filename}!")
 
     pygame.quit()
 
