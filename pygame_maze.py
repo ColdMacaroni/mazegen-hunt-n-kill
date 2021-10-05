@@ -2,6 +2,7 @@
 # pygame_maze.py
 # Wed 06 Oct 2021
 # Takes a generated maze and puts it in pygame
+# TODO: Move from pygame to PIL to generate bigger mazes without problem
 # S
 import pygame
 from sys import argv
