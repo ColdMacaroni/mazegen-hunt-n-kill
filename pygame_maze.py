@@ -11,7 +11,9 @@ import hunt_and_kill
 
 CELL_SIZE = 10 if len(argv) < 3 else int(argv[2])
 
-def draw_maze(screen, maze, width, height, fg):
+def draw_maze(screen, maze, width, height, fg,
+        start=pygame.Color(0xFA4444FF),
+        end=pygame.Color(0x4444FAFF)):
     """
     Draws the maze! What did you expect?
     """
@@ -21,8 +23,14 @@ def draw_maze(screen, maze, width, height, fg):
     # This function is just so useful
     maze_idx = lambda p: p[1] * width + p[0]
 
-    # No need to draw borders, those are always blocked
+    # start
+    pygame.draw.rect(screen, start, (CELL_SIZE, CELL_SIZE,
+                                     CELL_SIZE, CELL_SIZE))
+    # end
+    pygame.draw.rect(screen, end, (width * CELL_SIZE, height * CELL_SIZE,
+                                     CELL_SIZE, CELL_SIZE))
 
+    # No need to draw borders, those are always blocked
     # Start drawin the stuff. Shift all by one to make use of the padding
     for y in range(1, height + 1):
         for x in range(1, width + 1):
@@ -31,32 +39,33 @@ def draw_maze(screen, maze, width, height, fg):
 
             # The and at the end of each condition creates the exits
             # -- NORTH
-            if not (point & DIRS["N"]) and (x, y) != (1, 1):
+            if not (point & DIRS["N"]):
                 pygame.draw.line(screen, fg,
                         (x * CELL_SIZE, y * CELL_SIZE),
                         ((x + 1) * CELL_SIZE, y * CELL_SIZE),
                         STROKE)
 
             # -- EAST
-            if not (point & DIRS["E"]) and (x, y) != (width, height):
+            if not (point & DIRS["E"]):
                 pygame.draw.line(screen, fg,
                         ((x + 1) * CELL_SIZE, y * CELL_SIZE),
                         ((x + 1) * CELL_SIZE, (y + 1) * CELL_SIZE),
                         STROKE)
 
             # -- SOUTH
-            if not (point & DIRS["S"]) and (x, y) != (width, height):
+            if not (point & DIRS["S"]):
                 pygame.draw.line(screen, fg,
                         (x * CELL_SIZE, y * CELL_SIZE + CELL_SIZE), 
                         ((x + 1) * CELL_SIZE, (y + 1 ) * CELL_SIZE),
                         STROKE)
 
             # -- WEST
-            if not (point & DIRS["W"]) and (x, y) != (1, 1):
+            if not (point & DIRS["W"]):
                 pygame.draw.line(screen, fg,
                         (x * CELL_SIZE, y * CELL_SIZE), 
                         (x * CELL_SIZE, (y + 1) * CELL_SIZE),
                         STROKE)
+
 
 
 
