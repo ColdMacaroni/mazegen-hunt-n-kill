@@ -23,5 +23,4 @@ def main():
     ...
 
 if __name__ == "__main__":
-    print(bin(dirs.N), bin(dirs.E), bin(dirs.S), bin(dirs.W))
     main()
