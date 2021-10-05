@@ -102,7 +102,7 @@ def main(width = 10, height = 10, *args):
     maze_img.show(command='feh')
     if input("Save? [Y/n]: ").strip().lower() not in ["n", "no"]:
         filename = f"mazes/maze_{width}x{height}-{CELL_SIZE}.png"
-        maze_image.save(filename)
+        maze_img.save(filename)
         print(f"Image saved as {filename}!")
 
 
