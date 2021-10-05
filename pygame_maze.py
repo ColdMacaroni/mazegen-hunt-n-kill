@@ -26,31 +26,33 @@ def draw_maze(screen, maze, width, height, fg):
     # Start drawin the stuff. Shift all by one to make use of the padding
     for y in range(1, height + 1):
         for x in range(1, width + 1):
+            # Have to -1 due to the shift
             point = maze[maze_idx((x - 1, y - 1))]
 
+            # The and at the end of each condition creates the exits
             # -- NORTH
-            if not (point & DIRS["N"]):
+            if not (point & DIRS["N"]) and (x, y) != (1, 1):
                 pygame.draw.line(screen, fg,
                         (x * CELL_SIZE, y * CELL_SIZE),
                         ((x + 1) * CELL_SIZE, y * CELL_SIZE),
                         STROKE)
 
             # -- EAST
-            if not (point & DIRS["E"]):
+            if not (point & DIRS["E"]) and (x, y) != (width, height):
                 pygame.draw.line(screen, fg,
                         ((x + 1) * CELL_SIZE, y * CELL_SIZE),
                         ((x + 1) * CELL_SIZE, (y + 1) * CELL_SIZE),
                         STROKE)
 
             # -- SOUTH
-            if not (point & DIRS["S"]):
+            if not (point & DIRS["S"]) and (x, y) != (width, height):
                 pygame.draw.line(screen, fg,
                         (x * CELL_SIZE, y * CELL_SIZE + CELL_SIZE), 
                         ((x + 1) * CELL_SIZE, (y + 1 ) * CELL_SIZE),
                         STROKE)
 
             # -- WEST
-            if not (point & DIRS["W"]):
+            if not (point & DIRS["W"]) and (x, y) != (1, 1):
                 pygame.draw.line(screen, fg,
                         (x * CELL_SIZE, y * CELL_SIZE), 
                         (x * CELL_SIZE, (y + 1) * CELL_SIZE),
