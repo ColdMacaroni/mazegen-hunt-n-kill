@@ -24,12 +24,13 @@ def draw_maze(maze_draw, maze, width, height, fg,
     # This function is just so useful
     maze_idx = lambda p: p[1] * width + p[0]
 
+    # Draw the colour squares at tl and br. -1 for aesthetic purposes
     # start
     maze_draw.rectangle((CELL_SIZE, CELL_SIZE,
-                         CELL_SIZE*2, CELL_SIZE*2), fill=start)
+                         CELL_SIZE*2 -1, CELL_SIZE*2 -1), fill=start)
 
     # end
-    maze_draw.rectangle((width * CELL_SIZE, height * CELL_SIZE,
+    maze_draw.rectangle((width * CELL_SIZE +1, height * CELL_SIZE +1,
                          (width + 1) * CELL_SIZE, (height + 1) * CELL_SIZE), fill=end)
 
     # No need to draw borders, those are always blocked
