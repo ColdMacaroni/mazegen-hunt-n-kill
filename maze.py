@@ -11,6 +11,8 @@ from hunt_and_kill import DIRS
 import hunt_and_kill
 
 CELL_SIZE = 10 if len(argv) < 3 else int(argv[2])
+# Line thickness
+STROKE = max(CELL_SIZE // 5, 1)
 
 def draw_maze(maze_draw, maze, width, height, fg,
         start=(0xFA, 0x44, 0x44),
@@ -18,20 +20,17 @@ def draw_maze(maze_draw, maze, width, height, fg,
     """
     Draws the maze! What did you expect?
     """
-    # Line thickness
-    STROKE = max(CELL_SIZE // 5, 1)
-
     # This function is just so useful
     maze_idx = lambda p: p[1] * width + p[0]
 
-    # Draw the colour squares at tl and br. -1 for aesthetic purposes
+    # Draw the colour squares at tl and br. -STROKE for aesthetic purposes
     # start
-    maze_draw.rectangle((CELL_SIZE, CELL_SIZE,
-                         CELL_SIZE*2 -1, CELL_SIZE*2 -1), fill=start)
+    maze_draw.rectangle((CELL_SIZE + STROKE, CELL_SIZE + STROKE,
+                         CELL_SIZE*2 -STROKE, CELL_SIZE*2 -STROKE), fill=start)
 
     # end
-    maze_draw.rectangle((width * CELL_SIZE +1, height * CELL_SIZE +1,
-                         (width + 1) * CELL_SIZE, (height + 1) * CELL_SIZE), fill=end)
+    maze_draw.rectangle((width * CELL_SIZE +STROKE, height * CELL_SIZE +STROKE,
+                         (width + 1) * CELL_SIZE -STROKE, (height + 1) * CELL_SIZE -STROKE), fill=end)
 
     # No need to draw borders, those are always blocked
     # Start drawin the stuff. Shift all by one to make use of the padding
@@ -90,9 +89,9 @@ def main(width = 10, height = 10, *args):
     BG = (0xF0, 0xF4, 0xEE)
     FG = (0x3C, 0x3C, 0x4C)
 
-    # Plain image
-    maze_img = Image.new('RGB', (width * CELL_SIZE + CELL_SIZE*2,
-                                 height * CELL_SIZE + CELL_SIZE*2), BG)
+    # Plain image. With padding and extra STROKE so its even on all sides
+    maze_img = Image.new('RGB', (width * CELL_SIZE + CELL_SIZE*2 + STROKE,
+                                 height * CELL_SIZE + CELL_SIZE*2 + STROKE), BG)
 
     # Maze in list form
     maze = hunt_and_kill.gen_maze(width, height)
