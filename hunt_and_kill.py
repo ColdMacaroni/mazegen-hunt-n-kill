@@ -28,19 +28,45 @@ def walk_maze(maze: list[int], width: int, height: int, start: tuple[int, int]) 
     Does a random walk, setting the cells as it goes, until it cant find a
     path.
     """
-    def check_neightbours(pt) -> list[tuple[int, int]]:
+    # Shortcut for accessing maze
+    maze_idx = lambda p: p[1] * width + p[0]
+
+    def check_neighbours(pt) -> list[tuple[int, int]]:
         """
         Returns a list of possible neighbours.
         """
-        possible_points = list()
-        # -- NORTH
-        # Will skip if on the first row
-        if pt[0] != 0 and maze[(pt[0] - 1) * width + pt[1]] == 0:
+        # Shortcut funcs for surrounding points
+        north   = lambda p: (p[0]   , p[1] -1)
+        east    = lambda p: (p[0] +1, p[1]   )
+        south   = lambda p: (p[0]   , p[1] +1)
+        west    = lambda p: (p[0] -1, p[1]   )
 
+        # Points will be added to this list if they havent been traversed yet
+        possible_points = list()
+
+        # -- NORTH
+        p_pt = north(pt)
+        if pt[1] > 0 and maze[maze_idx(p_pt)] == 0:
+            possible_points.append(p_pt)
 
         # -- EAST
+        p_pt = east(pt)
+        if pt[0] < width - 1 and maze[maze_idx(p_pt)] == 0:
+            possible_points.append(p_pt)
+
         # -- SOUTH
+        p_pt = south(pt)
+        if pt[1] < height - 1 and maze[maze_idx(p_pt)] == 0:
+            possible_points.append(p_pt)
+
         # -- WEST
+        p_pt = west(pt)
+        if pt[0] > 0 and maze[maze_idx(p_pt)] == 0:
+            possible_points.append(p_pt)
+
+        return possible_points
+
+    check_neighbours(start)
 
 
 def gen_maze(width: int, height: int) -> list[int]:
