@@ -18,7 +18,7 @@ def draw_maze(screen, maze, width, height, fg,
     Draws the maze! What did you expect?
     """
     # Line thickness
-    STROKE = CELL_SIZE // 5
+    STROKE = max(CELL_SIZE // 5, 1)
 
     # This function is just so useful
     maze_idx = lambda p: p[1] * width + p[0]
