@@ -16,3 +16,9 @@ e.g. `py maze.py 30x20 10` will generate a maze of 30 by 20 cells, each 10 px.
 
 If you want each cell and each wall to be one pixel, set the size as 2.  
 `py maze.py 40x40 2`
+
+## Example Maze
+
+Generated with `python maze.py 35x30 2`.
+
+<img width="750" height="650" alt="A 35x30 maze with a red starting square on the top left and a blue ending square on the bottom right" src="https://github.com/user-attachments/assets/d4aa158b-7438-407a-9a99-4f6b24d515ec" />
